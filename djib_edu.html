@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduDjibouti — Cours & Exercices</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean: #006994;
+    --sky: #00AEEF;
+    --sand: #F5E6C8;
+    --terracotta: #C1440E;
+    --gold: #E8B84B;
+    --night: #0A1628;
+    --dusk: #12253D;
+    --mist: #EBF4FA;
+    --text: #1A2A3A;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--night);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,174,239,0.2);
+    padding: 0 2rem;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--sky), var(--ocean));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--white);
+  }
+
+  .nav-logo-text span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--sky); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--sky), var(--ocean));
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 100px 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 10%, rgba(0,174,239,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(0,105,148,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 10% 60%, rgba(232,184,75,0.1) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,174,239,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,174,239,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,174,239,0.1);
+    border: 1px solid rgba(0,174,239,0.3);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sky);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--sky);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 1.5rem;
+    position: relative;
+    animation: fadeDown 0.8s ease 0.2s both;
+  }
+
+  .hero h1 .accent { color: var(--gold); }
+  .hero h1 .sky { color: var(--sky); }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    line-height: 1.7;
+    margin: 0 auto 3rem;
+    position: relative;
+    animation: fadeDown 0.8s ease 0.4s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    animation: fadeDown 0.8s ease 0.6s both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--sky), var(--ocean));
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(0,174,239,0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,174,239,0.5);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--sky);
+    background: rgba(0,174,239,0.08);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    position: relative;
+    animation: fadeDown 0.8s ease 0.8s both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== LEVELS BAR ===== */
+  .levels-bar {
+    background: var(--dusk);
+    border-top: 1px solid rgba(0,174,239,0.15);
+    border-bottom: 1px solid rgba(0,174,239,0.15);
+    padding: 1.5rem 2rem;
+    overflow-x: auto;
+  }
+
+  .levels-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    white-space: nowrap;
+  }
+
+  .level-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .level-chip {
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .level-chip.seconde { border-color: #4ECDC4; color: #4ECDC4; }
+  .level-chip.seconde:hover, .level-chip.seconde.active { background: #4ECDC4; color: var(--night); }
+  .level-chip.premiere { border-color: var(--gold); color: var(--gold); }
+  .level-chip.premiere:hover, .level-chip.premiere.active { background: var(--gold); color: var(--night); }
+  .level-chip.terminale { border-color: var(--terracotta); color: #FF6B4A; }
+  .level-chip.terminale:hover, .level-chip.terminale.active { background: #FF6B4A; color: var(--white); }
+
+  /* ===== MAIN CONTENT ===== */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ===== SPECIALITES ===== */
+  .section { padding: 5rem 0; }
+  .section-header { margin-bottom: 3rem; }
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--sky);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 1rem;
+    margin-top: 0.75rem;
+    max-width: 500px;
+  }
+
+  /* ===== SPECIALITY CARDS ===== */
+  .specialites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: var(--dusk);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.75rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-color, var(--sky));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .spec-card:hover {
+    border-color: var(--card-color, var(--sky));
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .spec-card:hover::before { opacity: 1; }
+
+  .spec-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .spec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .spec-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .spec-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .spec-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--card-color, var(--sky));
+    background: rgba(0,174,239,0.08);
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--card-color, rgba(0,174,239,0.3));
+  }
+
+  .spec-count {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ===== FEATURED COURS ===== */
+  .cours-section { background: var(--dusk); padding: 5rem 0; }
+
+  .cours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cours-card {
+    background: var(--night);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .cours-card:hover {
+    border-color: rgba(0,174,239,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+
+  .cours-thumb {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cours-body { padding: 1.5rem; }
+
+  .cours-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  .tag-level { background: rgba(232,184,75,0.15); color: var(--gold); }
+  .tag-type-cours { background: rgba(0,174,239,0.12); color: var(--sky); }
+  .tag-type-exo { background: rgba(193,68,14,0.15); color: #FF6B4A; }
+
+  .cours-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .cours-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ===== ADMIN PANEL ===== */
+  .admin-section { padding: 5rem 0; }
+
+  .admin-card {
+    background: var(--dusk);
+    border: 1px solid rgba(232,184,75,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .admin-header {
+    background: linear-gradient(135deg, rgba(232,184,75,0.15), rgba(193,68,14,0.1));
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid rgba(232,184,75,0.15);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .admin-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .admin-header p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 4px; }
+
+  .admin-body { padding: 2.5rem; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  input, select, textarea {
+    background: var(--night);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px rgba(0,174,239,0.12);
+  }
+
+  select option { background: var(--night); }
+
+  textarea { resize: vertical; min-height: 120px; }
+
+  .form-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+
+  .btn-publish {
+    background: linear-gradient(135deg, var(--gold), #C8A000);
+    color: var(--night);
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+
+  .btn-publish:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,184,75,0.4); }
+
+  /* ===== FILTER BAR ===== */
+  .filter-bar {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    background: var(--dusk);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 8px 14px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .filter-select:focus { border-color: var(--sky); }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--dusk);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 8px 14px;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .search-bar input {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: white;
+    font-size: 0.85rem;
+    width: 100%;
+  }
+
+  .search-bar input:focus { box-shadow: none; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--dusk);
+    border: 1px solid rgba(0,174,239,0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 560px;
+    width: 100%;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+
+  .modal-overlay.active .modal { transform: translateY(0); }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-sub { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 2rem; }
+  .modal-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; color: rgba(255,255,255,0.5);
+    font-size: 1.5rem; cursor: pointer;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #060E1A;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem 2rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--sky); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== NOTIFICATION TOAST ===== */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--dusk);
+    border: 1px solid rgba(0,174,239,0.3);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.9rem;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 3000;
+    max-width: 360px;
+  }
+
+  .toast.show { transform: translateX(0); }
+  .toast-icon { font-size: 1.2rem; }
+  .toast-msg { flex: 1; }
+  .toast-title { font-weight: 700; }
+  .toast-sub { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+
+  /* ===== MISC ===== */
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 0;
+  }
+
+  .flag-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, #0C99D5 0%, #0C99D5 33%, #12A85B 33%, #12A85B 66%, #FFFFFF 66%, #FFFFFF 80%, #D21034 80%);
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    .nav-links { display: none; }
+    .modal { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLAG STRIPE -->
+<div class="flag-stripe"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">📚</div>
+    <span class="nav-logo-text">Edu<span>Djibouti</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#cours">Cours</a></li>
+    <li><a href="#exercices">Exercices</a></li>
+    <li><a href="#specialites">Spécialités</a></li>
+    <li><a href="#publier" class="nav-cta">✦ Publier</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">
+    🇩🇯 Plateforme Éducative Nationale de Djibouti
+  </div>
+
+  <h1>
+    Apprenez, progressez,<br>
+    <span class="accent">réussissez.</span>
+  </h1>
+
+  <p>
+    Des cours et exercices pour toutes les spécialités — de la Seconde à la Terminale — adaptés au programme scolaire djiboutien.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#cours" class="btn-primary">📖 Explorer les cours</a>
+    <a href="#publier" class="btn-secondary">✦ Publier un cours</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num" id="statCours">0</div>
+      <div class="stat-label">Cours publiés</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statExo">0</div>
+      <div class="stat-label">Exercices</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Spécialités</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Niveaux</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVELS BAR -->
+<div class="levels-bar">
+  <div class="levels-inner">
+    <span class="level-label">Niveau →</span>
+    <span class="level-chip seconde active" onclick="filterLevel('Seconde', this)">Seconde</span>
+    <span class="level-chip premiere" onclick="filterLevel('Première', this)">Première</span>
+    <span class="level-chip terminale" onclick="filterLevel('Terminale', this)">Terminale</span>
+    <span class="level-chip seconde" style="border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.5)" onclick="filterLevel('Tous', this)">Tous les niveaux</span>
+  </div>
+</div>
+
+<!-- SPECIALITES -->
+<section class="section" id="specialites">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">// Disciplines</div>
+      <h2 class="section-title">Toutes les spécialités</h2>
+      <p class="section-sub">Matières disponibles selon le cursus des lycées djiboutiens</p>
+    </div>
+
+    <div class="specialites-grid" id="specGrid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COURS & EXERCICES -->
+<section class="cours-section" id="cours">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">// Ressources</div>
+      <h2 class="section-title">Cours & Exercices</h2>
+      <p class="section-sub">Parcourez, filtrez et téléchargez les ressources pédagogiques</p>
+    </div>
+
+    <div class="filter-bar">
+      <div class="search-bar">
+        🔍
+        <input type="text" id="searchInput" placeholder="Rechercher un cours, chapitre..." oninput="filterCours()">
+      </div>
+      <select class="filter-select" id="filterNiveau" onchange="filterCours()">
+        <option value="">Tous niveaux</option>
+        <option>Seconde</option>
+        <option>Première</option>
+        <option>Terminale</option>
+      </select>
+      <select class="filter-select" id="filterSpec" onchange="filterCours()">
+        <option value="">Toutes matières</option>
+        <option>Mathématiques</option>
+        <option>Physique-Chimie</option>
+        <option>Sciences de la Vie et de la Terre</option>
+        <option>Histoire-Géographie</option>
+        <option>Français</option>
+        <option>Philosophie</option>
+        <option>Économie & Gestion</option>
+        <option>Informatique</option>
+        <option>Arabe</option>
+        <option>Anglais</option>
+        <option>Sciences Islamiques</option>
+        <option>Éducation Physique</option>
+      </select>
+      <select class="filter-select" id="filterType" onchange="filterCours()">
+        <option value="">Tous types</option>
+        <option>Cours</option>
+        <option>Exercice</option>
+        <option>Corrigé</option>
+        <option>Annale</option>
+      </select>
+    </div>
+
+    <div class="cours-grid" id="coursGrid">
+      <!-- Injected by JS -->
+    </div>
+
+    <div id="emptyState" style="display:none;text-align:center;padding:4rem 0;color:rgba(255,255,255,0.3)">
+      <div style="font-size:3rem;margin-bottom:1rem">📭</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.5rem;color:rgba(255,255,255,0.5)">Aucun résultat</div>
+      <div style="font-size:0.9rem">Essayez d'autres filtres ou publiez le premier cours !</div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLISH -->
+<section class="admin-section" id="publier">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">// Espace Enseignant</div>
+      <h2 class="section-title">Publier une ressource</h2>
+      <p class="section-sub">Partagez vos cours et exercices avec les élèves djiboutiens</p>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-header">
+        <div style="font-size:2rem">✦</div>
+        <div>
+          <h2>Formulaire de publication</h2>
+          <p>Tous les champs marqués * sont obligatoires</p>
+        </div>
+      </div>
+      <div class="admin-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Niveau *</label>
+            <select id="pub_niveau">
+              <option value="">— Sélectionner —</option>
+              <option>Seconde</option>
+              <option>Première</option>
+              <option>Terminale</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Spécialité *</label>
+            <select id="pub_spec">
+              <option value="">— Sélectionner —</option>
+              <option>Mathématiques</option>
+              <option>Physique-Chimie</option>
+              <option>Sciences de la Vie et de la Terre</option>
+              <option>Histoire-Géographie</option>
+              <option>Français</option>
+              <option>Philosophie</option>
+              <option>Économie & Gestion</option>
+              <option>Informatique</option>
+              <option>Arabe</option>
+              <option>Anglais</option>
+              <option>Sciences Islamiques</option>
+              <option>Éducation Physique</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Type de ressource *</label>
+            <select id="pub_type">
+              <option value="">— Sélectionner —</option>
+              <option>Cours</option>
+              <option>Exercice</option>
+              <option>Corrigé</option>
+              <option>Annale</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nom de l'enseignant</label>
+            <input type="text" id="pub_auteur" placeholder="Ex: M. Ahmed Hassan">
+          </div>
+          <div class="form-group full">
+            <label>Titre de la ressource *</label>
+            <input type="text" id="pub_titre" placeholder="Ex: Les fonctions dérivées — Chapitre 3">
+          </div>
+          <div class="form-group full">
+            <label>Description / Objectifs</label>
+            <textarea id="pub_desc" placeholder="Décrivez brièvement le contenu, les prérequis et les objectifs pédagogiques..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Contenu du cours / Énoncé</label>
+            <textarea id="pub_contenu" style="min-height:200px" placeholder="Rédigez ici le contenu complet du cours ou de l'exercice...&#10;&#10;Vous pouvez utiliser du texte enrichi, des formules mathématiques, etc."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Chapitre / Numéro</label>
+            <input type="text" id="pub_chapitre" placeholder="Ex: Chapitre 4">
+          </div>
+          <div class="form-group">
+            <label>Durée estimée</label>
+            <input type="text" id="pub_duree" placeholder="Ex: 2h de lecture">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-secondary" style="cursor:pointer" onclick="resetForm()">Réinitialiser</button>
+          <button class="btn-publish" onclick="publierCours()">✦ Publier la ressource</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="text-decoration:none">
+        <div class="nav-logo-icon">📚</div>
+        <span class="nav-logo-text">Edu<span>Djibouti</span></span>
+      </a>
+      <p>Plateforme éducative dédiée aux élèves et enseignants des lycées djiboutiens. Des ressources de qualité, gratuites et accessibles.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Niveaux</h4>
+      <ul>
+        <li><a href="#">Seconde</a></li>
+        <li><a href="#">Première</a></li>
+        <li><a href="#">Terminale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Matières</h4>
+      <ul>
+        <li><a href="#">Mathématiques</a></li>
+        <li><a href="#">Sciences</a></li>
+        <li><a href="#">Lettres</a></li>
+        <li><a href="#">Histoire-Géo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ressources</h4>
+      <ul>
+        <li><a href="#">Cours</a></li>
+        <li><a href="#">Exercices</a></li>
+        <li><a href="#">Annales</a></li>
+        <li><a href="#">Corrigés</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 EduDjibouti — Tous droits réservés</span>
+    <span>🇩🇯 Fait avec fierté pour Djibouti</span>
+  </div>
+</footer>
+
+<!-- MODAL DETAIL COURS -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">✅</div>
+  <div class="toast-msg">
+    <div class="toast-title" id="toastTitle">Succès</div>
+    <div class="toast-sub" id="toastSub">Opération réussie</div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const SPECIALITES = [
+  { nom: "Mathématiques", emoji: "📐", desc: "Algèbre, analyse, géométrie, probabilités", color: "#00AEEF", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Physique-Chimie", emoji: "⚗️", desc: "Mécanique, thermodynamique, chimie organique", color: "#4ECDC4", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Sciences de la Vie et de la Terre", emoji: "🌱", desc: "Biologie, géologie, écologie, génétique", color: "#2ECC71", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Histoire-Géographie", emoji: "🌍", desc: "Histoire mondiale, géopolitique, civilisations", color: "#E8B84B", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Français", emoji: "✍️", desc: "Littérature, expression écrite, commentaire", color: "#9B59B6", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Philosophie", emoji: "🦉", desc: "Grandes questions, auteurs classiques, argumentation", color: "#8E44AD", niveaux: ["Tle"] },
+  { nom: "Économie & Gestion", emoji: "📊", desc: "Microéconomie, macroéconomie, comptabilité", color: "#F39C12", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Informatique", emoji: "💻", desc: "Algorithmique, programmation, réseaux", color: "#1ABC9C", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Arabe", emoji: "🕌", desc: "Langue et littérature arabes, grammaire", color: "#C1440E", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Anglais", emoji: "🗣️", desc: "Compréhension, expression, civilisation", color: "#3498DB", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Sciences Islamiques", emoji: "☪️", desc: "Fiqh, Coran, histoire islamique", color: "#27AE60", niveaux: ["2de","1ère","Tle"] },
+  { nom: "Éducation Physique", emoji: "🏃", desc: "Sports, bien-être, santé", color: "#E74C3C", niveaux: ["2de","1ère","Tle"] },
+];
+
+let COURS_LIST = [
+  { id:1, titre:"Les fonctions dérivées", spec:"Mathématiques", niveau:"Terminale", type:"Cours", auteur:"M. Hassan Ali", desc:"Introduction au calcul différentiel : définition, règles de dérivation, applications.", emoji:"📐", color:"#00AEEF", date:"2025-06-01", duree:"3h" },
+  { id:2, titre:"Exercice : Équations du second degré", spec:"Mathématiques", niveau:"Seconde", type:"Exercice", auteur:"Mme Fadumo", desc:"Série d'exercices progressifs sur la résolution d'équations du 2nd degré.", emoji:"📐", color:"#00AEEF", date:"2025-06-03", duree:"1h30" },
+  { id:3, titre:"La thermodynamique — Lois de base", spec:"Physique-Chimie", niveau:"Première", type:"Cours", auteur:"M. Idriss Mohamed", desc:"Les lois de la thermodynamique et leurs applications pratiques.", emoji:"⚗️", color:"#4ECDC4", date:"2025-06-05", duree:"2h" },
+  { id:4, titre:"La photosynthèse et respiration cellulaire", spec:"Sciences de la Vie et de la Terre", niveau:"Seconde", type:"Cours", auteur:"Mme Hodan", desc:"Mécanismes de la photosynthèse et de la respiration cellulaire chez les plantes.", emoji:"🌱", color:"#2ECC71", date:"2025-06-07", duree:"2h30" },
+  { id:5, titre:"La Première Guerre Mondiale", spec:"Histoire-Géographie", niveau:"Première", type:"Cours", auteur:"M. Ahmed Waberi", desc:"Causes, déroulement et conséquences de la Grande Guerre.", emoji:"🌍", color:"#E8B84B", date:"2025-06-10", duree:"3h" },
+  { id:6, titre:"Dissertation littéraire — Méthode", spec:"Français", niveau:"Terminale", type:"Cours", auteur:"Mme Amina Djama", desc:"Méthode complète pour rédiger une dissertation littéraire au baccalauréat.", emoji:"✍️", color:"#9B59B6", date:"2025-06-12", duree:"2h" },
+];
+
+let filteredLevel = 'Tous';
+
+// ===== RENDER SPECIALITES =====
+function renderSpec() {
+  const grid = document.getElementById('specGrid');
+  grid.innerHTML = SPECIALITES.map(s => `
+    <div class="spec-card" style="--card-color:${s.color}" onclick="filterBySpec('${s.nom}')">
+      <div class="spec-icon" style="background:${s.color}22">${s.emoji}</div>
+      <div class="spec-title">${s.nom}</div>
+      <div class="spec-desc">${s.desc}</div>
+      <div class="spec-meta">
+        <span class="spec-badge" style="color:${s.color};border-color:${s.color}44;background:${s.color}11">${s.niveaux.join(' · ')}</span>
+        <span class="spec-count">${COURS_LIST.filter(c=>c.spec===s.nom).length} ressource(s)</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER COURS =====
+function renderCours(list) {
+  const grid = document.getElementById('coursGrid');
+  const empty = document.getElementById('emptyState');
+
+  if (!list.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(c => `
+    <div class="cours-card" onclick="openModal(${c.id})">
+      <div class="cours-thumb" style="background:linear-gradient(135deg,${c.color}22,${c.color}11)">
+        <span style="font-size:3.5rem">${c.emoji}</span>
+      </div>
+      <div class="cours-body">
+        <div class="cours-tags">
+          <span class="tag tag-level">${c.niveau}</span>
+          <span class="tag tag-type-${c.type==='Cours'?'cours':'exo'}">${c.type}</span>
+        </div>
+        <div class="cours-title">${c.titre}</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.45);margin-top:4px">${c.spec}</div>
+        <div class="cours-meta">
+          <span>👤 ${c.auteur || 'Anonyme'}</span>
+          ${c.duree ? `<span>⏱ ${c.duree}</span>` : ''}
+          <span>📅 ${c.date}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== FILTER =====
+function filterCours() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const niv = document.getElementById('filterNiveau').value;
+  const spec = document.getElementById('filterSpec').value;
+  const type = document.getElementById('filterType').value;
+
+  const filtered = COURS_LIST.filter(c => {
+    const matchQ = !q || c.titre.toLowerCase().includes(q) || c.spec.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
+    const matchN = !niv || c.niveau === niv;
+    const matchS = !spec || c.spec === spec;
+    const matchT = !type || c.type === type;
+    return matchQ && matchN && matchS && matchT;
+  });
+
+  renderCours(filtered);
+}
+
+function filterLevel(level, el) {
+  document.querySelectorAll('.level-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const niv = document.getElementById('filterNiveau');
+  niv.value = level === 'Tous' ? '' : level;
+  filterCours();
+  document.getElementById('cours').scrollIntoView({ behavior: 'smooth' });
+}
+
+function filterBySpec(spec) {
+  document.getElementById('filterSpec').value = spec;
+  filterCours();
+  document.getElementById('cours').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== MODAL =====
+function openModal(id) {
+  const c = COURS_LIST.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('modalContent').innerHTML = `
+    <div style="display:flex;gap:1rem;align-items:center;margin-bottom:1.5rem">
+      <div style="width:56px;height:56px;border-radius:14px;background:${c.color}22;display:flex;align-items:center;justify-content:center;font-size:2rem">${c.emoji}</div>
+      <div>
+        <div style="font-size:0.75rem;color:${c.color};font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">${c.spec} · ${c.niveau}</div>
+        <div class="modal-title">${c.titre}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <span class="tag tag-level">${c.niveau}</span>
+      <span class="tag tag-type-${c.type==='Cours'?'cours':'exo'}">${c.type}</span>
+      ${c.auteur?`<span style="font-size:.75rem;color:rgba(255,255,255,.5)">👤 ${c.auteur}</span>`:''}
+    </div>
+    <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem">
+      <div style="font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Description</div>
+      <p style="font-size:.95rem;line-height:1.6;color:rgba(255,255,255,.75)">${c.desc}</p>
+    </div>
+    ${c.contenu ? `<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem">
+      <div style="font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Contenu</div>
+      <p style="font-size:.9rem;line-height:1.7;color:rgba(255,255,255,.65);white-space:pre-wrap">${c.contenu}</p>
+    </div>` : ''}
+    <div style="display:flex;gap:1rem;margin-top:1.5rem">
+      <button class="btn-primary" style="flex:1;justify-content:center" onclick="closeModalDirect()">Fermer</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// ===== PUBLISH =====
+function publierCours() {
+  const niveau = document.getElementById('pub_niveau').value;
+  const spec = document.getElementById('pub_spec').value;
+  const type = document.getElementById('pub_type').value;
+  const titre = document.getElementById('pub_titre').value.trim();
+  const desc = document.getElementById('pub_desc').value.trim();
+  const auteur = document.getElementById('pub_auteur').value.trim();
+  const contenu = document.getElementById('pub_contenu').value.trim();
+  const duree = document.getElementById('pub_duree').value.trim();
+
+  if (!niveau || !spec || !type || !titre) {
+    showToast('⚠️', 'Champs manquants', 'Veuillez remplir tous les champs obligatoires (*)');
+    return;
+  }
+
+  const emojis = { "Mathématiques":"📐","Physique-Chimie":"⚗️","Sciences de la Vie et de la Terre":"🌱","Histoire-Géographie":"🌍","Français":"✍️","Philosophie":"🦉","Économie & Gestion":"📊","Informatique":"💻","Arabe":"🕌","Anglais":"🗣️","Sciences Islamiques":"☪️","Éducation Physique":"🏃" };
+  const colors = { "Mathématiques":"#00AEEF","Physique-Chimie":"#4ECDC4","Sciences de la Vie et de la Terre":"#2ECC71","Histoire-Géographie":"#E8B84B","Français":"#9B59B6","Philosophie":"#8E44AD","Économie & Gestion":"#F39C12","Informatique":"#1ABC9C","Arabe":"#C1440E","Anglais":"#3498DB","Sciences Islamiques":"#27AE60","Éducation Physique":"#E74C3C" };
+
+  const now = new Date().toISOString().split('T')[0];
+  const newCours = {
+    id: Date.now(),
+    titre, spec, niveau, type, auteur, desc, contenu, duree,
+    emoji: emojis[spec] || '📄',
+    color: colors[spec] || '#00AEEF',
+    date: now
+  };
+
+  COURS_LIST.unshift(newCours);
+  updateStats();
+  renderSpec();
+  filterCours();
+
+  showToast('✅', 'Ressource publiée !', `"${titre}" est maintenant disponible`);
+  resetForm();
+
+  setTimeout(() => {
+    document.getElementById('cours').scrollIntoView({ behavior: 'smooth' });
+  }, 600);
+}
+
+function resetForm() {
+  ['pub_niveau','pub_spec','pub_type','pub_auteur','pub_titre','pub_desc','pub_contenu','pub_chapitre','pub_duree'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+}
+
+// ===== STATS =====
+function updateStats() {
+  const cours = COURS_LIST.filter(c=>c.type==='Cours').length;
+  const exo = COURS_LIST.filter(c=>c.type==='Exercice'||c.type==='Annale'||c.type==='Corrigé').length;
+  animCount('statCours', cours);
+  animCount('statExo', exo);
+}
+
+function animCount(id, target) {
+  const el = document.getElementById(id);
+  let n = 0;
+  const step = Math.ceil(target / 20);
+  const t = setInterval(() => {
+    n = Math.min(n + step, target);
+    el.textContent = n;
+    if (n >= target) clearInterval(t);
+  }, 50);
+}
+
+// ===== TOAST =====
+function showToast(icon, title, sub) {
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastSub').textContent = sub;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// ===== INIT =====
+window.onload = () => {
+  renderSpec();
+  renderCours(COURS_LIST);
+  updateStats();
+};
+</script>
+</body>
+</html>
